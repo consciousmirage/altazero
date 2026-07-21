@@ -242,7 +242,7 @@ const LOOKBOOK = [
 const HOME = {
   eyebrow: "A TEXTILE HOUSE. EST. AT GROUND ZERO.",
   headline: "Start From Zero. Go Higher.",
-  subcopy: "Beautiful blanks, quietly made. The whole story lives on the tag.",
+  subcopy: "Beautiful blanks, made to order. The whole story lives on the tag.",
   wordmarkLabel: "A House Of Blanks. The Mark Is On The Tag.",
   tagline: "Start From Zero. Go Higher.",
 };
