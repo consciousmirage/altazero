@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Tags · Alta Zero</title>
+<meta name="description" content="Most brands live on the outside of the shirt. We moved the whole brand to the inside. The tag is the handshake.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="marquee" id="marquee">
+  <div class="marquee-track" id="marqueeTrack"></div>
+  <button class="marquee-x" id="marqueeX">X Close</button>
+</div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-left" id="nl">
+      <a href="archive.html">Archive</a>
+      <a href="house.html">The House</a>
+      <a href="tags.html" class="active">The Tags</a>
+    </div>
+    <button class="nav-toggle">Menu</button>
+    <a class="brand" href="index.html"><img src="img/az-wordmark-inline.png" alt="Alta Zero"></a>
+    <div class="nav-right">
+      <a href="archive.html" class="srch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>Search</a>
+      <a href="#" class="acct"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Account</a>
+      <a href="#" class="bag">Bag 00</a>
+    </div>
+  </div>
+</nav>
+
+<article class="article">
+  <div class="k">The Tags · The Front Door</div>
+  <h1>The label is not the afterthought.<br>It is the front door.</h1>
+  <p class="lede">Most brands live on the outside of the shirt. We moved the whole brand to the inside, to a woven neck label and a hangtag you have to hold to read.</p>
+
+  <p>Most brands live on the outside of the shirt. We moved the whole brand to the inside, to a woven neck label and a hangtag you have to hold to read. That is not modesty for its own sake. It is a bet. A blank only earns the word premium when the maker had nothing to hide behind, no logo doing the talking, just the cut, the cloth, and the care. So we put the care where you find it in private. The tag is the handshake. Everything else is the garment doing its job.</p>
+
+  <div class="figure reveal">
+    <img src="img/tag1.png" alt="Alta Zero hangtag with the penguin mark and archive number">
+    <div class="cap">The hangtag. No. 004 / 114. Start from zero, go higher.</div>
+  </div>
+
+  <p>Read the tag and you get the truth of the piece. Where it sits in the archive. What it is made of. How to keep it alive. One line of why we made it at all. Nobody on the street needs that information. You do. That is the point of a house of blanks. The label is not the afterthought at the back of the neck, it is the front door.</p>
+
+  <div class="figure reveal">
+    <img src="img/tag2.png" alt="Alta Zero woven neck label reading Alta Zero, Salt Lake City">
+    <div class="cap">The woven neck label. Alta Zero. Salt Lake City.</div>
+  </div>
+
+  <h2 class="sub">What the tag tells you</h2>
+  <ol class="ethos">
+    <li><span class="idx">01</span><span class="txt">Where it sits in the archive. No. 001 to 114.</span></li>
+    <li><span class="idx">02</span><span class="txt">What it is made of. The fiber and the weight.</span></li>
+    <li><span class="idx">03</span><span class="txt">How to keep it alive. The care, in plain words.</span></li>
+    <li><span class="idx">04</span><span class="txt">One line of why we made it at all.</span></li>
+  </ol>
+
+  <div class="figure reveal">
+    <img src="img/tag4.png" alt="Alta Zero care label">
+    <div class="cap">Salt Lake City, everywhere. Wash cold. The whole story, in private.</div>
+  </div>
+
+  <p>A blank has nowhere to hide. No logo doing the work, just the cut, the cloth, and the care at your neck. We think the best thing you can wear is a garment that lets you be the loud part. The mark is on the tag. That was the whole idea.</p>
+
+  <a class="cta" href="archive.html">Enter The Archive</a>
+</article>
+
+<footer class="foot">
+  <div class="foot-top">
+    <div class="signup">
+      <h4>Join The List</h4>
+      <h3>You went the other way.</h3>
+      <p>Hear about new pieces from the archive first, before they go wide. Start from zero, go higher, and we will see you at the top.</p>
+      <form onsubmit="this.querySelector('input').value='';this.querySelector('.sub').textContent='On The List';return false;">
+        <input type="email" placeholder="Email address" required>
+        <button class="sub" type="submit">Join</button>
+      </form>
+    </div>
+    <div>
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="archive.html">The Full Archive</a></li>
+        <li><a href="archive.html">Tees</a></li>
+        <li><a href="archive.html">Heavyweights</a></li>
+        <li><a href="archive.html">Trousers</a></li>
+        <li><a href="archive.html">Shorts</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>The House</h4>
+      <ul>
+        <li><a href="house.html">The House</a></li>
+        <li><a href="tags.html">The Tags</a></li>
+        <li><a href="house.html#faq">Shipping &amp; FAQ</a></li>
+        <li><a href="product.html?n=020">A Sample Piece</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <a class="brand" href="index.html"><img src="img/az-wordmark-inline.png" alt="Alta Zero"></a>
+    <span class="fine">Salt Lake City · Start From Zero. Go Higher.</span>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
