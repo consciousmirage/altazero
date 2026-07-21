@@ -5,31 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Alta Zero · A House Of Blanks</title>
 <meta name="description" content="Alta Zero is a textile house of beautiful blanks, quietly made. The whole story lives on the tag. Start from zero. Go higher.">
+<link rel="icon" href="img/az-penguin.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Alta Zero · A House Of Blanks">
+<meta property="og:description" content="Beautiful blanks, quietly made. The mark is on the tag. Start from zero. Go higher.">
+<meta property="og:image" content="img/campaign.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="marquee" id="marquee">
-  <div class="marquee-track" id="marqueeTrack"></div>
-  <button class="marquee-x" id="marqueeX">X Close</button>
-</div>
-
-<nav class="nav">
-  <div class="nav-inner">
-    <div class="nav-left" id="nl">
-      <a href="archive.html">Archive</a>
-      <a href="house.html">The House</a>
-      <a href="tags.html">The Tags</a>
-    </div>
-    <button class="nav-toggle">Menu</button>
-    <a class="brand" href="index.html"><img src="img/az-wordmark-inline.png" alt="Alta Zero"></a>
-    <div class="nav-right">
-      <a href="archive.html" class="srch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>Search</a>
-      <a href="#" class="acct"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Account</a>
-      <a href="#" class="bag">Bag 00</a>
-    </div>
-  </div>
-</nav>
+<div id="az-top"></div>
 
 <header class="home-hero">
   <a class="hero-enter" href="archive.html">Enter The Archive</a>
@@ -37,11 +23,43 @@
   <div class="hero-mark"><img src="img/az-wordmark-stacked.png" alt="Alta Zero"></div>
 </header>
 
+<section class="spoken reveal">
+  <div class="sp-k">A Textile House · Est. At Ground Zero</div>
+  <div class="sp-line" id="spLine"></div>
+  <div class="sp-sub" id="spSub"></div>
+</section>
+
 <section class="ed reveal">
   <a href="tags.html" class="ed-img"><img src="img/gm1.png" alt="Folded Alta Zero pieces with hangtag"></a>
   <div class="ed-bar">
     <span class="ed-head">We moved the whole brand to the inside</span>
     <a class="link" href="tags.html">Read The Tags</a>
+  </div>
+</section>
+
+<section class="look reveal" id="lookbook">
+  <span class="look-idx" id="lk1idx"></span>
+  <img src="img/gm3.png" alt="Alta Zero, layers for the cold ground and the long climb">
+  <div class="look-cap">
+    <span class="lk-t" id="lk1t"></span>
+    <span class="lk-c" id="lk1c"></span>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="sec-head">
+    <h2>The Essentials</h2>
+    <a class="link" href="collection.html?c=the-essentials-ten">View The Edit</a>
+  </div>
+  <div class="grid four" id="essentials"></div>
+</div>
+
+<section class="look reveal" style="margin-top:56px">
+  <span class="look-idx" id="lk2idx"></span>
+  <img src="img/gm4.png" alt="Alta Zero dense fleece that stands almost on its own">
+  <div class="look-cap">
+    <span class="lk-t" id="lk2t"></span>
+    <span class="lk-c" id="lk2c"></span>
   </div>
 </section>
 
@@ -53,55 +71,36 @@
   <div class="grid four" id="preview"></div>
 </div>
 
-<section class="ed reveal" style="margin-top:56px">
-  <a href="house.html" class="ed-img"><img src="img/gm3.png" alt="Alta Zero polo with the small penguin mark"></a>
-  <div class="ed-bar">
-    <span class="ed-head">The colony went to the sea. We went to the mountains</span>
-    <a class="link" href="house.html">Meet The House</a>
-  </div>
+<section class="spoken reveal" style="border-top:1px solid var(--hair)">
+  <div class="sp-k">The Mark Is On The Tag</div>
+  <div class="sp-line" id="spLine2"></div>
+  <div class="sp-sub" id="spSub2"></div>
 </section>
 
-<footer class="foot">
-  <div class="foot-top">
-    <div class="signup">
-      <h4>Join The List</h4>
-      <h3>You went the other way.</h3>
-      <p>Hear about new pieces from the archive first, before they go wide. Start from zero, go higher, and we will see you at the top.</p>
-      <form onsubmit="this.querySelector('input').value='';this.querySelector('.sub').textContent='On The List';return false;">
-        <input type="email" placeholder="Email address" required>
-        <button class="sub" type="submit">Join</button>
-      </form>
-    </div>
-    <div>
-      <h4>Shop</h4>
-      <ul>
-        <li><a href="archive.html">The Full Archive</a></li>
-        <li><a href="archive.html">Tees</a></li>
-        <li><a href="archive.html">Heavyweights</a></li>
-        <li><a href="archive.html">Trousers</a></li>
-        <li><a href="archive.html">Shorts</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>The House</h4>
-      <ul>
-        <li><a href="house.html">The House</a></li>
-        <li><a href="tags.html">The Tags</a></li>
-        <li><a href="house.html#faq">Shipping &amp; FAQ</a></li>
-        <li><a href="product.html?n=020">A Sample Piece</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="foot-bottom">
-    <a class="brand" href="index.html"><img src="img/az-wordmark-inline.png" alt="Alta Zero"></a>
-    <span class="fine">Salt Lake City · Start From Zero. Go Higher.</span>
-  </div>
-</footer>
+<div id="az-foot"></div>
 
 <script src="archive-data.js"></script>
+<script src="site-content.js"></script>
 <script src="app.js"></script>
 <script>
-  renderPreview(document.getElementById('preview'),
+  AZ.mount({active:'home'});
+
+  document.getElementById('spLine').textContent = SPOKEN[0].line;
+  document.getElementById('spSub').textContent  = SPOKEN[0].sub;
+  document.getElementById('spLine2').textContent = SPOKEN[2].line;
+  document.getElementById('spSub2').textContent  = SPOKEN[2].sub;
+
+  var l1 = LOOKBOOK[1], l2 = LOOKBOOK[2];
+  document.getElementById('lk1idx').textContent = 'Lookbook · 0'+l1.slide;
+  document.getElementById('lk1t').textContent = l1.title;
+  document.getElementById('lk1c').textContent = l1.caption;
+  document.getElementById('lk2idx').textContent = 'Lookbook · 0'+l2.slide;
+  document.getElementById('lk2t').textContent = l2.title;
+  document.getElementById('lk2c').textContent = l2.caption;
+
+  var ess = COLLECTIONS.find(function(c){return c.slug==='the-essentials-ten';});
+  AZ.renderPreview(document.getElementById('essentials'), ess.memberArchiveNumbers.slice(0,8).map(AZ.padN));
+  AZ.renderPreview(document.getElementById('preview'),
     ['001','020','037','015','054','064','111','097']);
 </script>
 </body>

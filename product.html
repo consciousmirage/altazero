@@ -5,167 +5,133 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Alta Zero · Product</title>
 <meta name="description" content="An Alta Zero blank. The mark is on the tag.">
+<link rel="icon" href="img/az-penguin.png">
+<meta property="og:type" content="product">
+<meta property="og:title" content="Alta Zero · Product">
+<meta property="og:description" content="An Alta Zero blank. The mark is on the tag.">
+<meta property="og:image" content="img/campaign.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="marquee" id="marquee">
-  <div class="marquee-track" id="marqueeTrack"></div>
-  <button class="marquee-x" id="marqueeX">X Close</button>
-</div>
-
-<nav class="nav">
-  <div class="nav-inner">
-    <div class="nav-left" id="nl">
-      <a href="archive.html">Archive</a>
-      <a href="house.html">The House</a>
-      <a href="tags.html">The Tags</a>
-    </div>
-    <button class="nav-toggle">Menu</button>
-    <a class="brand" href="index.html"><img src="img/az-wordmark-inline.png" alt="Alta Zero"></a>
-    <div class="nav-right">
-      <a href="archive.html" class="srch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>Search</a>
-      <a href="#" class="acct"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Account</a>
-      <a href="#" class="bag">Bag <span id="cartcount">00</span></a>
-    </div>
-  </div>
-</nav>
+<div id="az-top"></div>
 
 <section class="pdp" id="pdp"></section>
 
-<div class="wrap">
+<div class="wrap pdp-related">
   <div class="sec-head">
-    <h2>More From The Archive</h2>
+    <h2>Related Pieces</h2>
     <a class="link" href="archive.html">View All 114</a>
   </div>
   <div class="grid four" id="more" style="margin-bottom:64px"></div>
 </div>
 
-<footer class="foot">
-  <div class="foot-top">
-    <div class="signup">
-      <h4>Join The List</h4>
-      <h3>You went the other way.</h3>
-      <p>Hear about new pieces from the archive first, before they go wide. Start from zero, go higher, and we will see you at the top.</p>
-      <form onsubmit="this.querySelector('input').value='';this.querySelector('.sub').textContent='On The List';return false;">
-        <input type="email" placeholder="Email address" required>
-        <button class="sub" type="submit">Join</button>
-      </form>
-    </div>
-    <div>
-      <h4>Shop</h4>
-      <ul>
-        <li><a href="archive.html">The Full Archive</a></li>
-        <li><a href="archive.html">Tees</a></li>
-        <li><a href="archive.html">Heavyweights</a></li>
-        <li><a href="archive.html">Trousers</a></li>
-        <li><a href="archive.html">Shorts</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>The House</h4>
-      <ul>
-        <li><a href="house.html">The House</a></li>
-        <li><a href="tags.html">The Tags</a></li>
-        <li><a href="house.html#faq">Shipping &amp; FAQ</a></li>
-        <li><a href="product.html?n=020">A Sample Piece</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="foot-bottom">
-    <a class="brand" href="index.html"><img src="img/az-wordmark-inline.png" alt="Alta Zero"></a>
-    <span class="fine">Salt Lake City · Start From Zero. Go Higher.</span>
-  </div>
-</footer>
+<div id="az-foot"></div>
 
 <script src="archive-data.js"></script>
 <script src="product-data.js"></script>
+<script src="site-content.js"></script>
 <script src="app.js"></script>
 <script>
-  const q = new URLSearchParams(location.search);
-  const n = q.get('n') || '020';
-  const p = ARCHIVE.find(x => x.n === n) || ARCHIVE.find(x => x.n === '020');
-  const L = listingFor(p);
+  AZ.mount({active:''});
+
+  var q = new URLSearchParams(location.search);
+  var n = q.get('n') || '020';
+  var p = AZ.byNum(n) || AZ.byNum('020');
+  var L = listingFor(p);
   document.title = p.name.toUpperCase() + ' · Alta Zero';
+  var md = document.querySelector('meta[name="description"]');
+  if(md) md.setAttribute('content', L.desc);
 
-  const mainShot = p.img
-    ? `<img src="img/${p.img}.png" alt="${p.name}">`
-    : `<div class="ph"><div class="num">${p.n}</div><div class="cat">${p.cat}</div></div>`;
+  /* build the gallery shots: piece, neck tag, campaign */
+  var pieceMain = p.img
+    ? '<img src="img/'+p.img+'.png" alt="'+p.name+'">'
+    : AZ.specimenHTML(p);
+  var pieceThumb = p.img
+    ? '<img src="img/'+p.img+'.png" alt="'+p.name+'">'
+    : AZ.specimenHTML(p);
+  var tag = AZ.tagShot(p);
+  var shots = [
+    { main: pieceMain, thumb: pieceThumb },
+    { main: '<img src="'+tag+'" alt="Alta Zero woven neck label">', thumb: '<img src="'+tag+'" alt="">' },
+    { main: '<img class="cover" src="img/campaign.png" alt="Alta Zero campaign">', thumb: '<img class="cover" src="img/campaign.png" alt="">' }
+  ];
 
-  const sizes = ['S','M','L','XL','2XL'];
-  const nNum = parseInt(p.n, 10);
-  const soldout = i => (nNum + i) % 6 === 0; /* made-to-order availability, deterministic */
+  var thumbsHTML = shots.map(function(s,i){
+    return '<button class="'+(i===0?'on':'')+'" data-i="'+i+'" aria-label="View image '+(i+1)+'">'+s.thumb+'</button>';
+  }).join('');
 
-  document.getElementById('pdp').innerHTML = `
-    <div class="pdp-media">
-      <div class="shot">${mainShot}</div>
-      <div class="shot"><img src="img/tag2.png" alt="Alta Zero woven neck label"></div>
-      <div class="shot"><img src="img/tag1.png" alt="Alta Zero hangtag with archive number"></div>
-    </div>
-    <div class="pdp-info">
-      <div class="head">
-        <h1>${p.name}</h1>
-        <span class="price">$${p.price}</span>
-      </div>
-      <div class="meta">No. ${p.n} / 114 &middot; ${colourOf(p)} &middot; ${p.style}</div>
-      <p class="desc">${L.desc}</p>
+  var sizes = ['S','M','L','XL','2XL'];
+  var nNum = parseInt(p.n,10);
+  var soldout = function(i){ return (nNum+i)%6===0; };
 
-      <div class="size-row">
-        <span class="lbl">Size</span>
-        <a class="link size-guide" href="#">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="8" width="18" height="8"/><line x1="8" y1="8" x2="8" y2="12"/><line x1="12" y1="8" x2="12" y2="13"/><line x1="16" y1="8" x2="16" y2="12"/></svg>
-          Size Guide
-        </a>
-      </div>
-      <div class="sizes" id="sizes">
-        ${sizes.map((s,i)=>`<button class="${soldout(i)?'soldout':(i===1?'sel':'')}"${soldout(i)?' disabled':''}>${s}</button>`).join('')}
-      </div>
+  document.getElementById('pdp').innerHTML =
+    '<div class="pdp-media">'+
+      '<div class="gallery-main" id="galMain">'+shots[0].main+'</div>'+
+      '<div class="gallery-thumbs" id="galThumbs">'+thumbsHTML+'</div>'+
+    '</div>'+
+    '<div class="pdp-info">'+
+      '<div class="head"><h1>'+p.name+'</h1><span class="price">$'+p.price+'</span></div>'+
+      '<div class="meta">No. '+p.n+' / 114 · '+AZ.colourOf(p)+' · '+p.style+'</div>'+
+      '<p class="desc">'+L.desc+'</p>'+
+      '<div class="size-row"><span class="lbl">Size</span>'+
+        '<a class="link size-guide" href="#" id="sizeGuideLink">'+
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="8" width="18" height="8"/><line x1="8" y1="8" x2="8" y2="12"/><line x1="12" y1="8" x2="12" y2="13"/><line x1="16" y1="8" x2="16" y2="12"/></svg>'+
+        'Size Guide</a></div>'+
+      '<div class="sizes" id="sizes">'+
+        sizes.map(function(s,i){
+          return '<button class="'+(soldout(i)?'soldout':(i===1?'sel':''))+'"'+(soldout(i)?' disabled':'')+'>'+s+'</button>';
+        }).join('')+
+      '</div>'+
+      '<button class="addbag" id="addbag">Add To Bag · $'+p.price+'</button>'+
+      '<p class="note">Made to order in about 5 to 8 business days</p>'+
+      '<div class="acc-group">'+
+        '<details class="acc" open><summary><span class="acc-t">Shipping &amp; Made To Order</span><span class="acc-s">5 to 8 business days</span><span class="acc-c">&rsaquo;</span></summary>'+
+        '<div class="acc-body">Every Alta Zero piece is made to order, so nothing sits in a warehouse waiting. Give it about 5 to 8 business days to be made, then standard shipping on top. You get a tracking link the moment it leaves us.</div></details>'+
+        '<details class="acc"><summary><span class="acc-t">The Tag</span><span class="acc-s">The mark is on the tag</span><span class="acc-c">&rsaquo;</span></summary>'+
+        '<div class="acc-body">We moved the whole brand to the inside, to a woven neck label and a hangtag you have to hold to read. No logo doing the talking, just the cut, the cloth, and the care at your neck. This is No. '+p.n+' of 114. When a piece retires, its number retires with it.</div></details>'+
+        '<details class="acc"><summary><span class="acc-t">Materials &amp; Care</span><span class="acc-s">'+p.cat+'</span><span class="acc-c">&rsaquo;</span></summary>'+
+        '<div class="acc-body">'+L.mat+'. '+L.fit+'. '+L.care+'</div></details>'+
+      '</div>'+
+    '</div>';
 
-      <button class="addbag" id="addbag">Add To Bag &middot; $${p.price}</button>
-      <p class="note">Made to order in about 5 to 8 business days</p>
-
-      <div class="acc-group">
-        <details class="acc" open>
-          <summary><span class="acc-t">Shipping &amp; Made To Order</span><span class="acc-s">5 to 8 business days</span><span class="acc-c">&rsaquo;</span></summary>
-          <div class="acc-body">Every Alta Zero piece is made to order, so nothing sits in a warehouse waiting. Give it about 5 to 8 business days to be made, then standard shipping on top. You get a tracking link the moment it leaves us.</div>
-        </details>
-        <details class="acc">
-          <summary><span class="acc-t">The Tag</span><span class="acc-s">The mark is on the tag</span><span class="acc-c">&rsaquo;</span></summary>
-          <div class="acc-body">We moved the whole brand to the inside, to a woven neck label and a hangtag you have to hold to read. No logo doing the talking, just the cut, the cloth, and the care at your neck. This is No. ${p.n} of 114. When a piece retires, its number retires with it.</div>
-        </details>
-        <details class="acc">
-          <summary><span class="acc-t">Materials &amp; Care</span><span class="acc-s">${p.cat}</span><span class="acc-c">&rsaquo;</span></summary>
-          <div class="acc-body">${L.mat}. ${L.fit}. ${L.care}</div>
-        </details>
-      </div>
-    </div>`;
+  /* gallery swap */
+  var galMain = document.getElementById('galMain');
+  var galThumbs = document.getElementById('galThumbs');
+  galThumbs.addEventListener('click', function(e){
+    var b = e.target.closest('button'); if(!b) return;
+    var i = parseInt(b.dataset.i,10);
+    galMain.innerHTML = shots[i].main;
+    galThumbs.querySelectorAll('button').forEach(function(x){ x.classList.remove('on'); });
+    b.classList.add('on');
+  });
 
   /* size selector */
-  const sz = document.getElementById('sizes');
-  sz.addEventListener('click', e => {
-    const b = e.target.closest('button'); if(!b || b.disabled) return;
-    sz.querySelectorAll('button').forEach(x=>x.classList.remove('sel'));
+  var sz = document.getElementById('sizes');
+  sz.addEventListener('click', function(e){
+    var b = e.target.closest('button'); if(!b || b.disabled) return;
+    sz.querySelectorAll('button').forEach(function(x){ x.classList.remove('sel'); });
     b.classList.add('sel');
   });
 
-  /* add to bag (preview only) */
-  let bag = 0;
-  document.getElementById('addbag').addEventListener('click', function(){
-    const selBtn = sz.querySelector('button.sel');
-    if(!selBtn) return;
-    bag++;
-    document.getElementById('cartcount').textContent = String(bag).padStart(2,'0');
-    const sel = selBtn.textContent;
-    this.textContent = 'Added To Bag · Size ' + sel;
-    setTimeout(()=>{ this.textContent = 'Add To Bag · $' + p.price; }, 1600);
+  /* size guide modal */
+  document.getElementById('sizeGuideLink').addEventListener('click', function(e){
+    e.preventDefault(); AZ.openSizeGuide();
   });
 
-  /* related: 8 others from the same group, wrap around */
-  const pool = ARCHIVE.filter(x => x.g === p.g && x.n !== p.n);
-  const others = (pool.length >= 8 ? pool : ARCHIVE.filter(x=>x.n!==p.n)).slice(0, 8);
-  const more = document.getElementById('more');
-  more.innerHTML = others.map(tileHTML).join('');
-  observeReveals(more);
+  /* add to bag */
+  document.getElementById('addbag').addEventListener('click', function(){
+    var selBtn = sz.querySelector('button.sel');
+    if(!selBtn){ this.textContent = 'Select A Size First'; var t=this; setTimeout(function(){ t.textContent='Add To Bag · $'+p.price; },1400); return; }
+    AZ.Bag.add({ n:p.n, name:p.name, price:p.price, img:p.img, size:selBtn.textContent });
+    AZ.openBag();
+  });
+
+  /* related: 4 from the same group, wrap around */
+  var pool = ARCHIVE.filter(function(x){ return x.g===p.g && x.n!==p.n; });
+  var others = (pool.length>=4 ? pool : ARCHIVE.filter(function(x){ return x.n!==p.n; })).slice(0,4);
+  AZ.renderGrid(document.getElementById('more'), others);
 </script>
 </body>
 </html>

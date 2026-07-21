@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Collection · Alta Zero</title>
+<meta name="description" content="An Alta Zero collection. Beautiful blanks, quietly made. The mark is on the tag.">
+<link rel="icon" href="img/az-penguin.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Collection · Alta Zero">
+<meta property="og:description" content="An Alta Zero collection. The mark is on the tag.">
+<meta property="og:image" content="img/campaign.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="az-top"></div>
+
+<div class="wrap">
+  <div class="coll-head" id="collHead"></div>
+  <div class="archive-meta" id="meta">
+    <span class="items"></span>
+    <button class="filter" type="button" id="filterBtn">Search
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+    </button>
+  </div>
+  <div class="grid four" id="grid"></div>
+</div>
+
+<div id="az-foot" style="margin-top:64px"></div>
+
+<script src="archive-data.js"></script>
+<script src="site-content.js"></script>
+<script src="app.js"></script>
+<script>
+  AZ.mount({active:'shop'});
+
+  var q = new URLSearchParams(location.search);
+  var slug = q.get('c') || 'the-essentials-ten';
+  var c = COLLECTIONS.find(function(x){ return x.slug===slug; }) || COLLECTIONS[0];
+
+  document.title = c.name + ' · Alta Zero';
+  var md = document.querySelector('meta[name="description"]');
+  if(md) md.setAttribute('content', c.intro);
+
+  document.getElementById('collHead').innerHTML =
+    '<div class="k">Collection</div>'+
+    '<h1>'+c.name+'</h1>'+
+    '<div class="tag">'+c.tagline+'</div>'+
+    '<p>'+c.intro+'</p>';
+
+  var list = c.memberArchiveNumbers.map(function(i){ return AZ.byNum(AZ.padN(i)); }).filter(Boolean);
+  AZ.renderGrid(document.getElementById('grid'), list);
+  document.querySelector('#meta .items').textContent = list.length + ' items';
+  document.getElementById('filterBtn').addEventListener('click', AZ.openSearch);
+</script>
+</body>
+</html>
